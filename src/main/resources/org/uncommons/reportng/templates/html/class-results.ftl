@@ -65,24 +65,25 @@
             </#if>
 
             <#if (testResult.throwable?? && (testResult.status == 2 || meta.shouldShowExpectedExceptions()))>
-                <a href="javascript:toggleElement('exception-${testResult?index}', 'block')"
+                <a href="javascript:toggleElement('exception-${id}', 'block')"
                    title="${messages.getString("clickToExpandCollapse")}">
                     <b>${utils.escapeHTMLString(testResult.throwable?string)}</b>
                 </a>
                 <br/>
-                <div class="stackTrace" id="exception-${testResult?index}">
+                <div class="stackTrace" id="exception-${id}">
                     <#list testResult.throwable.stackTrace as element>
                         ${utils.escapeHTMLString(element?string)}<br/>
                     </#list>
                     <#assign causes=utils.getCauses(testResult.throwable)>
                     <#list causes as throwable>
+                        <#assign id=id+1>
                         <b>${messages.getString("causedBy")}: </b>
-                        <a href="javascript:toggleElement('exception-${throwable?index + 1}', 'block')"
+                        <a href="javascript:toggleElement('exception-${id}', 'block')"
                            title="Click to expand/collapse">
                             ${utils.escapeHTMLString(throwable.toString())}
                         </a>
                         <br/>
-                        <div class="stackTrace" id="exception-${throwable?index + 1}">
+                        <div class="stackTrace" id="exception-${id}">
                             <#list throwable.stackTrace as element>
                                 ${utils.escapeHTMLString(element.toString())}<br/>
                             </#list>
@@ -90,6 +91,7 @@
                     </#list>
                 </div>
             </#if>
+            <#assign id =id+1>
         </td>
     </tr>
 </#list>
