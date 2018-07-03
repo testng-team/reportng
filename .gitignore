@@ -1,8 +1,5 @@
-*.iws
 .DS_Store
-build
-dist
-docs
-website
-release
-temp
+target/
+.idea
+test-output/
+*.iml

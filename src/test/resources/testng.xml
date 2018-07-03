@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Unit Tests" verbose="1">
+
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    </listeners>
+
+    <test name="ReportNG Unit Tests">
+        <classes>
+            <class name="org.uncommons.reportng.ReportMetadataTest"/>
+            <class name="org.uncommons.reportng.ReportNGUtilsTest"/>
+        </classes>
+    </test>
+
+    <!-- Disabled by default since it is only run when we have to see how the reports are generated -->
+    <test name="ReportNG Sample Report Tests" enabled="false">
+        <packages>
+            <package name="org.uncommons.reportng.sample"/>
+        </packages>
+    </test>
+
+</suite>

@@ -1,0 +1,22 @@
+sudo: required
+language: java
+
+env:
+  global:
+    - GPG_DIR="`pwd`/deploy"
+
+cache:
+  directories:
+    - "$HOME/.m2"
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: JDK=9
+  include:
+    - jdk: oraclejdk8
+    - jdk: oraclejdk9
+      env: JDK=9
+
+after_success:
+  - "$GPG_DIR/publish.sh"
