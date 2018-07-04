@@ -93,7 +93,7 @@ public final class ReportMetadata {
     /**
      * If the XML dialect has been set to "junit", we will render all skipped tests as failed tests
      * in the XML.  Otherwise we use TestNG's extended version of the XML format that allows for
-     * "<skipped>" elements.
+     * <pre><skipped></pre> elements.
      */
     public boolean allowSkippedTestsInXML() {
         return !System.getProperty(XML_DIALECT_KEY, "testng").equalsIgnoreCase("junit");
