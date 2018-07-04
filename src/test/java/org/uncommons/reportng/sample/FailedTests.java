@@ -1,5 +1,6 @@
 package org.uncommons.reportng.sample;
 
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -17,14 +18,14 @@ public class FailedTests {
 
     @Test
     public void assertionFailureWithMultilineMessage() {
-        assert false : "This test failed.\nIts message is on multiple lines.\n     The last one has leading whitespace.";
+        Assert.fail("This test failed.\nIts message is on multiple lines.\n     The last one has leading whitespace.");
     }
 
 
     @Test
     public void assertionFailureWithOutput() {
         Reporter.log("Here is some output from an unsuccessful test.");
-        assert false : "This test failed.";
+        Assert.fail("This test failed.");
     }
 
 

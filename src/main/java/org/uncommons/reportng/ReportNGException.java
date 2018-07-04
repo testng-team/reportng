@@ -5,10 +5,6 @@ package org.uncommons.reportng;
  */
 public class ReportNGException extends RuntimeException {
 
-    public ReportNGException(String string) {
-        super(string);
-    }
-
     public ReportNGException(String string, Throwable throwable) {
         super(string, throwable);
     }

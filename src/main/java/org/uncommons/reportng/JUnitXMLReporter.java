@@ -37,7 +37,7 @@ public class JUnitXMLReporter extends AbstractReporter {
         Collection<TestClassResults> flattenedResults = flattenResults(suites);
 
         for (TestClassResults results : flattenedResults) {
-            Map context = createContext();
+            Map<String, Object> context = createContext();
             context.put(RESULTS_KEY, results);
 
             try {

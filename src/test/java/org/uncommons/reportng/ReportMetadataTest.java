@@ -1,6 +1,7 @@
 package org.uncommons.reportng;
 
 import java.util.Locale;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -17,7 +18,7 @@ public class ReportMetadataTest {
 
         ReportMetadata metadata = new ReportMetadata();
         String locale = metadata.getLocale().toString();
-        assert locale.equals("en_GB") : "Wrong locale: " + locale;
+        Assert.assertEquals(locale, "en_GB", "Wrong locale: " + locale);
     }
 
 
@@ -28,7 +29,7 @@ public class ReportMetadataTest {
 
         ReportMetadata metadata = new ReportMetadata();
         String locale = metadata.getLocale().toString();
-        assert locale.equals("fr") : "Wrong locale: " + locale;
+        Assert.assertEquals(locale, "fr", "Wrong locale: " + locale);
     }
 
 
@@ -39,7 +40,7 @@ public class ReportMetadataTest {
 
         ReportMetadata metadata = new ReportMetadata();
         String locale = metadata.getLocale().toString();
-        assert locale.equals("fr_CA") : "Wrong locale: " + locale;
+        Assert.assertEquals(locale, "fr_CA", "Wrong locale: " + locale);
     }
 
 
@@ -50,6 +51,6 @@ public class ReportMetadataTest {
 
         ReportMetadata metadata = new ReportMetadata();
         String locale = metadata.getLocale().toString();
-        assert locale.equals("fr_CA_POSIX") : "Wrong locale: " + locale;
+        Assert.assertEquals(locale, "fr_CA_POSIX", "Wrong locale: " + locale);
     }
 }

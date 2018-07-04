@@ -7,7 +7,6 @@ import freemarker.template.TemplateExceptionHandler;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -17,8 +16,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import org.testng.IReporter;
 
@@ -40,7 +41,7 @@ public abstract class AbstractReporter implements IReporter {
     }
 
     public Map<String, Object> createContext() {
-        Map context = new HashMap<>();
+        Map<String, Object> context = new HashMap<>();
         context.put(META_KEY, META);
         context.put(MESSAGES_KEY, MESSAGES);
         context.put(UTILS_KEY, UTILS);
@@ -52,6 +53,9 @@ public abstract class AbstractReporter implements IReporter {
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
             URL resource = getClass().getClassLoader().getResource(classpathPrefix);
+            if (resource == null) {
+                throw new IllegalArgumentException("Unable to find resources :" + classpathPrefix);
+            }
             cfg.setDirectoryForTemplateLoading(new File(resource.getPath()));
             cfg.setDefaultEncoding(ENCODING);
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
@@ -133,17 +137,13 @@ public abstract class AbstractReporter implements IReporter {
      * @param outputDirectory The directory to search for empty directories.
      */
     protected void removeEmptyDirectories(File outputDirectory) {
-        if (outputDirectory.exists()) {
-            for (File file : outputDirectory.listFiles(new EmptyDirectoryFilter())) {
-                file.delete();
-            }
+        if (outputDirectory == null || !outputDirectory.exists()) {
+            return;
         }
+        Arrays.stream(Objects.requireNonNull(outputDirectory.listFiles()))
+            .filter(
+                file -> file.isDirectory() && Objects.requireNonNull(file.listFiles()).length == 0)
+            .forEach(File::delete);
     }
 
-    private static final class EmptyDirectoryFilter implements FileFilter {
-
-        public boolean accept(File file) {
-            return file.isDirectory() && file.listFiles().length == 0;
-        }
-    }
 }

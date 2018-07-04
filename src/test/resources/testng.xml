@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Unit Tests" verbose="1">
+<suite name="Unit Tests" verbose="2">
 
     <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>

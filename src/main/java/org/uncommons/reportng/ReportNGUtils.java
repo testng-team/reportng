@@ -332,18 +332,18 @@ public class ReportNGUtils {
         for (Map.Entry<String, ISuiteResult> entry : suite.getResults().entrySet()) {
             ITestContext testContext = entry.getValue().getTestContext();
             for (ITestNGMethod m : testContext.getAllTestMethods()) {
-                if (method == m) {
+                if (method.getTestMethod() == m) {
                     return testContext.getEndDate().getTime();
                 }
             }
             // If we can't find a matching name method it must be a configuration method.
             for (ITestNGMethod m : testContext.getPassedConfigurations().getAllMethods()) {
-                if (method == m) {
+                if (method.getTestMethod() == m) {
                     return testContext.getEndDate().getTime();
                 }
             }
             for (ITestNGMethod m : testContext.getFailedConfigurations().getAllMethods()) {
-                if (method == m) {
+                if (method.getTestMethod() == m) {
                     return testContext.getEndDate().getTime();
                 }
             }

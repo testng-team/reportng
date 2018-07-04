@@ -49,9 +49,16 @@ public class HTMLReporter extends AbstractReporter {
 
     private static final String REPORT_DIRECTORY = "html";
 
-    private static final Comparator<ITestNGMethod> METHOD_COMPARATOR = new TestMethodComparator();
-    private static final Comparator<ITestResult> RESULT_COMPARATOR = new TestResultComparator();
-    private static final Comparator<IClass> CLASS_COMPARATOR = new TestClassComparator();
+    private static final Comparator<ITestNGMethod> METHOD_COMPARATOR = Comparator
+        .comparing((ITestNGMethod method) -> method.getRealClass().getName())
+        .thenComparing(ITestNGMethod::getMethodName);
+
+    private static final Comparator<ITestResult> RESULT_COMPARATOR =
+        Comparator.comparing(ITestResult::getName);
+
+    private static final Comparator<IClass> CLASS_COMPARATOR =
+        Comparator.comparing(IClass::getName);
+
 
     public HTMLReporter() {
         super(TEMPLATES_PATH);
@@ -86,7 +93,7 @@ public class HTMLReporter extends AbstractReporter {
     private void createSuiteList(List<ISuite> suites,
         File outputDirectory,
         boolean onlyFailures) throws Exception {
-        Map context = createContext();
+        Map<String, Object> context = createContext();
         context.put(SUITES_KEY, suites);
         context.put(ONLY_FAILURES_KEY, onlyFailures);
         generateFile(new File(outputDirectory, INDEX_FILE + HTML_EXTENSION),
