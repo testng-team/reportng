@@ -1,5 +1,10 @@
 sudo: required
 language: java
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "testng-team"
 
 env:
   global:
@@ -8,6 +13,7 @@ env:
 cache:
   directories:
     - "$HOME/.m2"
+    - '$HOME/.sonar/cache'
 
 matrix:
   fast_finish: true
@@ -17,6 +23,9 @@ matrix:
     - jdk: oraclejdk8
     - jdk: oraclejdk9
       env: JDK=9
+
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 after_success:
   - "$GPG_DIR/publish.sh"
