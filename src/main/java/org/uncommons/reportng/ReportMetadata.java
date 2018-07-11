@@ -140,7 +140,7 @@ public final class ReportMetadata {
                     return new Locale(components[0], components[1], components[2]);
                 default:
                     Logger.getLogger(ReportMetadata.class.getName())
-                            .warning("Invalid locale specified: " + locale + ", use default locale instead.");
+                            .warning(() -> "Invalid locale specified: " + locale + ", use default locale instead.");
             }
         }
         return Locale.getDefault();
