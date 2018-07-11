@@ -131,22 +131,21 @@ public class JUnitXMLReporter extends AbstractReporter {
          */
         void addResult(ITestResult result) {
             switch (result.getStatus()) {
-                case ITestResult.SKIP: {
+                case ITestResult.SKIP:
                     if (META.allowSkippedTestsInXML()) {
                         skippedTests.add(result);
                         break;
                     }
                     // Intentional fall-through (skipped tests marked as failed if XML doesn't support skips).
-                }
                 case ITestResult.FAILURE:
-                case ITestResult.SUCCESS_PERCENTAGE_FAILURE: {
+                case ITestResult.SUCCESS_PERCENTAGE_FAILURE:
                     failedTests.add(result);
                     break;
-                }
-                case ITestResult.SUCCESS: {
+                case ITestResult.SUCCESS:
                     passedTests.add(result);
                     break;
-                }
+                default:
+                    throw new IllegalStateException("Unknown result status:" + result.getStatus());
             }
             duration += (result.getEndMillis() - result.getStartMillis());
         }

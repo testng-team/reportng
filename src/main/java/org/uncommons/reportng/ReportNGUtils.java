@@ -10,7 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.testng.IInvokedMethod;
+import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
@@ -104,7 +106,7 @@ public class ReportNGUtils {
 
     public String getArguments(ITestResult result) {
         Object[] arguments = result.getParameters();
-        List<String> argumentStrings = new ArrayList<String>(arguments.length);
+        List<String> argumentStrings = new ArrayList<>(arguments.length);
         for (Object argument : arguments) {
             argumentStrings.add(renderArgument(argument));
         }
@@ -337,18 +339,23 @@ public class ReportNGUtils {
                 }
             }
             // If we can't find a matching name method it must be a configuration method.
-            for (ITestNGMethod m : testContext.getPassedConfigurations().getAllMethods()) {
-                if (method.getTestMethod() == m) {
-                    return testContext.getEndDate().getTime();
-                }
+            if (hasMethod(testContext.getPassedConfigurations(), method)) {
+                return testContext.getEndDate().getTime();
             }
-            for (ITestNGMethod m : testContext.getFailedConfigurations().getAllMethods()) {
-                if (method.getTestMethod() == m) {
-                    return testContext.getEndDate().getTime();
-                }
+            if (hasMethod(testContext.getFailedConfigurations(), method)) {
+                return testContext.getEndDate().getTime();
             }
         }
         throw new IllegalStateException("Could not find matching end time.");
+    }
+
+    private static boolean hasMethod(IResultMap resultMap, IInvokedMethod method) {
+        for (ITestNGMethod m : resultMap.getAllMethods()) {
+            if (method.getTestMethod() == m) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String formatPercentage(int numerator, int denominator) {
