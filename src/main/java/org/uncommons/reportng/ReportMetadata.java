@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * Provides access to static information useful when generating a report.
@@ -23,8 +24,8 @@ public final class ReportMetadata {
     static final String STYLESHEET_KEY = PROPERTY_KEY_PREFIX + "stylesheet";
     static final String LOCALE_KEY = PROPERTY_KEY_PREFIX + "locale";
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEEE dd MMMM yyyy");
-    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm z");
+    private final DateFormat dateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
+    private final DateFormat timeFormat = new SimpleDateFormat("HH:mm z");
 
     /**
      * The date/time at which this report is being generated.
@@ -36,7 +37,7 @@ public final class ReportMetadata {
      * @see #getReportTime()
      */
     public String getReportDate() {
-        return DATE_FORMAT.format(reportTime);
+        return dateFormat.format(reportTime);
     }
 
     /**
@@ -44,7 +45,7 @@ public final class ReportMetadata {
      * @see #getReportDate()
      */
     public String getReportTime() {
-        return TIME_FORMAT.format(reportTime);
+        return timeFormat.format(reportTime);
     }
 
     public String getReportTitle() {
@@ -126,7 +127,7 @@ public final class ReportMetadata {
      * @return The locale specified by the System properties, or the platform default locale if none
      * is specified.
      */
-    public Locale getLocale() {
+    public static Locale getLocale() {
         if (System.getProperties().containsKey(LOCALE_KEY)) {
             String locale = System.getProperty(LOCALE_KEY);
             String[] components = locale.split("_", 3);
@@ -138,7 +139,8 @@ public final class ReportMetadata {
                 case 3:
                     return new Locale(components[0], components[1], components[2]);
                 default:
-                    System.err.println("Invalid locale specified: " + locale);
+                    Logger.getLogger(ReportMetadata.class.getName())
+                            .warning(() -> "Invalid locale specified: " + locale + ", use default locale instead.");
             }
         }
         return Locale.getDefault();

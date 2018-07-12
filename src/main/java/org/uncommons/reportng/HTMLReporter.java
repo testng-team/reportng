@@ -13,6 +13,8 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import freemarker.template.TemplateException;
 import org.testng.IClass;
 import org.testng.IResultMap;
 import org.testng.ISuite;
@@ -107,7 +109,7 @@ public class HTMLReporter extends AbstractReporter {
      * @param outputDirectory The target directory for the generated file(s).
      */
     private void createResults(List<ISuite> suites, File outputDirectory, boolean onlyShowFailures)
-        throws Exception {
+        throws IOException, TemplateException {
         int i = 0;
         for (ISuite suite : suites) {
             int j = 0;
@@ -154,7 +156,8 @@ public class HTMLReporter extends AbstractReporter {
         return sortedResults;
     }
 
-    private void createGroups(List<ISuite> suites, File outputDirectory) throws Exception {
+    private void createGroups(List<ISuite> suites, File outputDirectory)
+        throws IOException, TemplateException {
         int index = 0;
         for (ISuite suite : suites) {
             SortedMap<String, SortedSet<ITestNGMethod>> groups = sortGroups(
@@ -182,7 +185,8 @@ public class HTMLReporter extends AbstractReporter {
         return sortedGroups;
     }
 
-    private void createLog(File outputDirectory, boolean onlyFailures) throws Exception {
+    private void createLog(File outputDirectory, boolean onlyFailures)
+        throws IOException, TemplateException {
         if (!Reporter.getOutput().isEmpty()) {
             Map<String, Object> context = createContext();
             context.put(ONLY_FAILURES_KEY, onlyFailures);
