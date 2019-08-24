@@ -25,7 +25,8 @@ matrix:
       env: JDK=9
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn clean test
 
 after_success:
   - "$GPG_DIR/publish.sh"
