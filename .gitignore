@@ -4,3 +4,5 @@ target/
 test-output/
 *.iml
 release.properties
+.gradle
+build
