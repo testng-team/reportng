@@ -47,6 +47,7 @@ repositories {
 
 plugins {
     java
+    maven
     `java-library`
     `maven-publish`
     signing

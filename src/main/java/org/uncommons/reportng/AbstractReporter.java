@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +51,7 @@ public abstract class AbstractReporter implements IReporter {
         throws IOException, TemplateException {
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
-            URL resource = getClass().getClassLoader().getResource(classpathPrefix);
-            if (resource == null) {
-                throw new IllegalArgumentException("Unable to find resources :" + classpathPrefix);
-            }
-            cfg.setDirectoryForTemplateLoading(new File(resource.getPath()));
+            cfg.setClassForTemplateLoading(getClass(), classpathPrefix );
             cfg.setDefaultEncoding(ENCODING);
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             cfg.setLogTemplateExceptions(false);
@@ -81,7 +76,8 @@ public abstract class AbstractReporter implements IReporter {
     protected void copyClasspathResource(File outputDirectory,
         String resourceName,
         String targetFileName) throws IOException {
-        String resourcePath = classpathPrefix + resourceName;
+        String base = getClass().getPackage().getName().replaceAll("\\Q.\\E", "/");
+        String resourcePath = base + "/" + classpathPrefix + resourceName;
         InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
         copyStream(outputDirectory, resourceStream, targetFileName);
     }

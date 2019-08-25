@@ -28,7 +28,7 @@ public class HTMLReporter extends AbstractReporter {
 
     private static final String ONLY_FAILURES_PROPERTY = "org.uncommons.reportng.failures-only";
 
-    private static final String TEMPLATES_PATH = "org/uncommons/reportng/templates/html/";
+    private static final String TEMPLATES_PATH = "templates/html/";
     private static final String HTML_EXTENSION = ".html";
     private static final String FTL_EXTENSION = ".ftl";
 
