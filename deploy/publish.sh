@@ -3,7 +3,7 @@
 if [ "${TRAVIS_JDK_VERSION}" == "oraclejdk8" ] ; then
   if [ "${TRAVIS_PULL_REQUEST}" == "false" ] ; then
     if [ "${TRAVIS_BRANCH}" == "master" ] ; then
-      mvn deploy --settings $GPG_DIR/settings.xml -DperformRelease=true -DskipTests=true
+      ./gradlew publishSnapshotOnly
       exit $?
     else
       echo "Deploy skipped: Only the master branch"

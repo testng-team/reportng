@@ -1,7 +1,7 @@
 
 
 object This {
-    val version = "1.2.1"
+    val version = "1.2.2-SNAPSHOT"
     val groupId = "org.testng"
     val artifactId = "reportng"
     val description = "A TestNG reporter plugin"
@@ -10,6 +10,7 @@ object This {
 
     // Should not need to change anything below
     val issueManagementUrl = "https://$scm/issues"
+    val isSnapshot = version.contains("SNAPSHOT")
 }
 
 allprojects {
@@ -149,7 +150,7 @@ with(publishing) {
         mavenLocal()
         maven {
             name = "sonatype"
-            url = if (This.version.contains("SNAPSHOT"))
+            url = if (This.isSnapshot)
                 uri("https://oss.sonatype.org/content/repositories/snapshots/") else
                 uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
@@ -161,6 +162,15 @@ with(publishing) {
             name = "myRepo"
             url = uri("file://$buildDir/repo")
         }
+    }
+}
+
+tasks.register("publishSnapshotOnly") {
+    if (This.isSnapshot) {
+        println("Publishing ${This.version}")
+        dependsOn("publish")
+    } else {
+        println("Not a snapshot, not publishing anything")
     }
 }
 
