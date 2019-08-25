@@ -29,16 +29,11 @@ script:
   - ./gradlew clean test
 
 after_success:
-  - "$GPG_DIR/publish.sh"
+  - "$GPG_DIR/publishSnapshotOnly.sh"
 
 deploy:
-#  provider: releases
-#  api_key: "GITHUB OAUTH TOKEN"
-#  file: "FILE TO UPLOAD"
-#  skip_cleanup: true
+  provider: script
+  script: bash $GPG_DIR/publishToMavenCentral.sh
   on:
     tags: true
-
-after_deploy:
-  - echo "Received a new tag, we should publish to Maven Central"
 
