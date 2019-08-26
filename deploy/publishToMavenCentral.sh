@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Publishing to Maven Central"
+
 if [ "${TRAVIS_JDK_VERSION}" == "oraclejdk8" ] ; then
   if [ "${TRAVIS_PULL_REQUEST}" == "false" ] ; then
     if [ "${TRAVIS_BRANCH}" == "master" ] ; then

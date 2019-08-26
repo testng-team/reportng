@@ -33,7 +33,7 @@ after_success:
 
 deploy:
   provider: script
-  script: bash $GPG_DIR/publishToMavenCentral.sh
+  script: "$GPG_DIR/publishToMavenCentral.sh"
   on:
     tags: true
 
