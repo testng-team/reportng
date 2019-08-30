@@ -184,8 +184,8 @@ tasks.test {
     }
 }
 
-publish.doLast {
-    if (! version.contains("SNAPSHOT")) {
+tasks["publish"].doLast {
+    if (! This.isSnapshot) {
         println("Now go to https://oss.sonatype.org/index.html#stagingRepositories to close" +
                 " and publish the distribution")
     }
