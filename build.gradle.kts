@@ -2,7 +2,7 @@
 
 object This {
     val version = "1.2.2"
-    val groupId = "org.testng"
+    val groupId = "com.github.testng-team"
     val artifactId = "reportng"
     val description = "A TestNG reporter plugin"
     val url = "https://testng.org"
