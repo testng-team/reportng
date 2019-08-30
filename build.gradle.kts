@@ -135,7 +135,7 @@ with(publishing) {
                         name.set("Julien Herr")
                     }
                     developer {
-                        name.set("Krishnana Mahadevan")
+                        name.set("Krishnan Mahadevan")
                     }
                 }
                 scm {
@@ -181,5 +181,12 @@ with(signing) {
 tasks.test {
     useTestNG() {
         suites("src/test/resources/testng.xml")
+    }
+}
+
+publish.doLast {
+    if (! version.contains("SNAPSHOT")) {
+        println("Now go to https://oss.sonatype.org/index.html#stagingRepositories to close" +
+                " and publish the distribution")
     }
 }
