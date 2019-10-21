@@ -55,7 +55,7 @@
             <#if (output?size > 0)>
                 <div class="testOutput">
                     <#list output as line>
-                        <#if meta.shouldEscapeOutput??>
+                        <#if meta.shouldEscapeOutput()>
                             ${utils.escapeHTMLString(line)}<br/>
                         <#else>
                             ${line}
