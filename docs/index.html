@@ -12,22 +12,15 @@
   </head>
   <body>
     <div id="container">
-      <a href="https://github.com/dwdyer/reportng"><img id="githubribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" width="149" height="149" alt="Fork me on GitHub" /></a>
+      <a href="https://github.com/testng-team/reportng"><img id="githubribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" width="149" height="149" alt="Fork me on GitHub" /></a>
       <div id="title">
         <h1>ReportNG</h1>
         <h2>An HTML/XML Reporting Plug-in for TestNG</h2>
       </div>
       <div id="ribbon">
-        Current Stable Version: <span class="version">1.1.4</span>
-        <a href="https://dl.dropboxusercontent.com/u/14133069/reportng-1.1.4.zip">Download</a>
-        <a href="https://github.com/dwdyer/reportng">Source Code</a>
+        Current Stable Version: <span class="version">1.2.2</span>
+        <a href="https://github.com/testng-team/reportng">Source Code</a>
       </div>
-      <p style="text-align: center;">
-        <em style="color: #c00;">
-          THIS SOFTWARE IS NO LONGER BEING MAINTAINED. VERSION 1.1.4 IS THE FINAL RELEASE.<br/>
-          IF YOU WOULD LIKE TO MAKE YOUR OWN UPDATES, YOU CAN
-          <a href="https://github.com/dwdyer/reportng">FORK IT ON GITHUB</a>.</em>
-      </p>
       <img src="detail.gif" alt="Report detail page." width="483" height="356" class="screenshot-right"/>
       <p>
         ReportNG is a simple HTML reporting plug-in for the <a href="http://www.testng.org">TestNG</a> unit-testing
@@ -49,9 +42,8 @@
         to what you would get if you were using JUnit.
       </p>
       <p>
-        The current version is <a href="https://github.com/dwdyer/reportng/downloads">1.1.4</a>,
-        which has been tested with TestNG 6.2 (it should work with any version of TestNG after 5.0,
-        but this has not been tested).
+        The current version is <a href="https://repo1.maven.org/maven2/org/testng/reportng/">1.2.2</a>,
+        which has been tested with TestNG 6.14.3.
       </p>
       <img src="overview.png" alt="Report overview page." width="511" height="172" class="screenshot-right" />
       <h3>Sample Reports</h3>
@@ -94,12 +86,28 @@
         The <code>reportng-1.1.4.jar</code> and <code>velocity-dep-1.4.jar</code> files must be
         included in the classpath used to run the tests.
       </p>
-      <h3>Other Build Systems</h3>
+      <h3>Maven</h3>
       <p>
-        If you use <a href="http://maven.apache.org">Maven</a>, you may find 
-        <a href="http://solidsoft.wordpress.com/2011/01/23/better-looking-html-test-reports-for-testng-with-reportng-maven-guide/">Marcin Zajączkowski's instructions</a>
-        helpful.
+Add ReportNG as a Maven dependency
+
+      <pre>
+        &lt;dependency&gt;
+                &lt;groupId&gt;org.testng&lt;/groupId&gt;
+                &lt;artifactId&gt;reportng&lt;/artifactId&gt;
+                &lt;version&gt;1.2.2&lt;/version&gt;
+                &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    </pre>
+    <p>
+        Now ReportNG reports will be generated for each test run. ReportNG wires-in the below mentioned mandatory listeners via <a href="https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html">Service Providers Interface</a>, so no additional work needs to be done to start consuming them. 
+        <ol>
+            <li>org.uncommons.reportng.HTMLReporter</li>
+            <li>org.uncommons.reportng.JUnitXMLReporter</li>
+        </ol>
+    </p>
+
       </p>
+      <h3>Other Build Systems</h3>
       <p>
         If you are using <a href="http://www.gradle.org/">Gradle</a>, Tomek Kaczanowski has written
         <a href="http://kaczanowscy.pl/tomek/2009-12/better-looking-test-reports-with-reportng">these instructions</a>
@@ -148,9 +156,9 @@
             ReportNG 1.1 includes translations for the following languages: English, French and
             Portuguese.  If you would like to contribute translations for other languages, please
             open an issue in the
-            <a href="https://github.com/dwdyer/reportng/issues">issue tracker</a> and attach
+            <a href="https://github.com/testng-team/reportng/issues">issue tracker</a> and attach
             a translated version of
-            <a href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/org/uncommons/reportng/messages/reportng.properties">the properties file</a>.
+            <a href="https://github.com/testng-team/reportng/blob/master/reportng/src/java/resources/org/uncommons/reportng/messages/reportng.properties">the properties file</a>.
           </em>
         </dd>
         <dt><code>org.uncommons.reportng.show-expected-exceptions</code></dt>
@@ -163,7 +171,7 @@
         <dd>
           The path to a custom CSS file that over-rides some or all of the default styles used by
           the <code>HTMLReporter</code>.  This allows the appearance of reports to be customised.
-          See the <a href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/org/uncommons/reportng/templates/html/reportng.css">default
+          See the <a href="https://github.com/testng-team/reportng/blob/master/reportng/src/java/resources/org/uncommons/reportng/templates/html/reportng.css">default
           stylesheet</a> for the classes and selectors that can be styled.
           For an example, see <a href="sample/custom/index.html">this version</a> of the
           <a href="sample/index.html">sample report</a>, which uses the bundled hudsonesque.css file

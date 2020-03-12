@@ -2,7 +2,7 @@
 
 An HTML/XML Reporting Plugin for TestNG.
 
-ReportNG is a simple HTML reporting plug-in for the [TestNG](http://www.testng.org/) unit-testing framework. It is intended as a replacement for the default TestNG HTML report.
+[ReportNG](https://testng.org/reportng/) is a simple HTML reporting plug-in for the [TestNG](http://www.testng.org/) unit-testing framework. It is intended as a replacement for the default TestNG HTML report.
 
 ### Pre-requisites
 1. TestNG `v6.14.3` or higher.
@@ -16,7 +16,7 @@ Add ReportNG as a Maven dependency
 <dependency>
         <groupId>org.testng</groupId>
         <artifactId>reportng</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.2.2</version>
         <scope>test</scope>
 </dependency>
 ```
